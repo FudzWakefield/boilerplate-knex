@@ -6,7 +6,9 @@ module.exports = {
   getUser: getUser,
   getUsers: getUsers,
   getUserProfile: getUserProfile,
-  addUser: addUser
+  addUser: addUser,
+  showBlogPost: showBlogPost,
+  getUserBlogs: getUserBlogs
 }
 
 function getUsers (db = connection) {
@@ -18,7 +20,8 @@ function getUser (id, db = connection) {
 }
 
 function getUserProfile (id, db = connection) {
-  return db('users').where('id', id)
+  return db('users')
+  .where('id', id)
   .join('profiles', 'users.id', 'user_id')
   .first()
 }
@@ -29,4 +32,16 @@ function addUser (newUser, db = connection) {
     name: newUser.name,
     email: newUser.email
   })
+}
+
+function showBlogPost (id, db = connection) {
+  return db('posts')
+  //.join('users', 'posts.user_id', 'id')
+  .where('posts_id', id)
+}
+
+function getUserBlogs (id, db = connection) {
+  return db('posts')
+  .join('users', 'posts.user_id', 'id')
+  .where('users.id', id)
 }

@@ -18,13 +18,17 @@ router.get('/user/:id', (req, res) => {
   let id = req.params.id
   
   db.getUserProfile(id)
-    .then (user => {
-      console.log(user)
-      res.render('profile', {user:user})
+  .then(user => {
+    db.getUserBlogs(user.id)
+    .then (posts => {
+      console.log(user, posts)
+      res.render('profile', {user:user, posts: posts})
     })
-    .catch(err => {
-      res.status(500).send('DATABASE ERROR: ' + err.message)
-    })
+  })
+  
+  .catch(err => {
+    res.status(500).send('DATABASE ERROR: ' + err.message)
+  })
 })
 
 router.get('/newuser', (req, res) => {
@@ -37,6 +41,14 @@ router.post('/newuser', (req, res) => {
   .then (
     console.log(newUser),
     res.redirect ('/'))
+})
+
+router.get('/posts/:id', (req, res) => {
+  let id = req.params.id
+  db.showBlogPost (id)
+  .then(
+    res.render('posts')
+  )
 })
 
 module.exports = router
