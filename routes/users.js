@@ -25,7 +25,18 @@ router.get('/user/:id', (req, res) => {
     .catch(err => {
       res.status(500).send('DATABASE ERROR: ' + err.message)
     })
+})
 
+router.get('/newuser', (req, res) => {
+  res.render('newuser')
+})
+
+router.post('/newuser', (req, res) => {
+  let newUser = req.body;
+  db.addUser(newUser)
+  .then (
+    console.log(newUser),
+    res.redirect ('/'))
 })
 
 module.exports = router
