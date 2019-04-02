@@ -17,9 +17,15 @@ router.get('/', (req, res) => {
 router.get('/user/:name', (req, res) => {
   let userName = req.params.name
 
-  console.log('This is the user', userName)
-  res.render('user',{userName})
-  
+  db.getProfileInfoByUser(userName)
+    .then((user) => {
+      console.log("Womble for view: ", user)
+      res.render('user', user[0])
+    })
+    .catch((err) => {
+      res.status(500).send(err)
+}) 
+
   // db.getUsers()
   //   .then(users => {
   //     res.render('index', {users: users})
