@@ -27,5 +27,15 @@ router.post('/add', (req, res) => {
     .then(res.redirect('/'))
 })
 
+router.get('/posts', (req, res) => {
+  db.getPosts().then(posts => {
+    console.log(posts)
+    res.render('posts', {
+      posts: posts
+    })
+  })
+})
+
+
 
 module.exports = router
