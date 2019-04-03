@@ -53,11 +53,34 @@ router.get('/post/:id', (req, res) => {
   let id = req.params.id
 
   db.getPost(id).then(post => {
+    console.log(post)
     res.render('post', {
       post: post
     })
   })
 })
 
+router.get('/users/:id', (req, res) => {
+  let id = req.params.id
+  db.getUser(id).
+  then(user => {
+    console.log({
+      user: user
+    })
+    res.render('user', {
+      user: user
+    })
+  })
+})
+
+router.get('/usersfavourites', (req, res) => {
+  db.getFavourites(99909)
+    .then(fav => {
+      console.log(fav)
+      res.render('index', {
+        fav: fav
+      })
+    })
+})
 
 module.exports = router

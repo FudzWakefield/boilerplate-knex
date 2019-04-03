@@ -9,7 +9,8 @@ module.exports = {
   addUser: addUser,
   getPosts: getPosts,
   getPost: getPost,
-  makePost: makePost
+  makePost: makePost,
+  getFavourites: getFavourites
 }
 
 function getUsers(db = connection) {
@@ -29,13 +30,19 @@ function getPosts(db = connection) {
     .join('posts', 'users.id', '=', 'posts.users_id')
 }
 
-function getPost(userId, db = connection) {
+function getPost(postId, db = connection) {
   return db('posts')
-    .where('users_id', '=', userId)
+    .where('id', '=', postId)
     .select()
 }
 
 function makePost(newPost, db = connection) {
   return db('posts').insert(newPost)
+}
+
+function getFavourites(userId, db = connection) {
+  return db('favourites')
+    .where('users_id', '=', userId)
+    .select()
 }
 ////
