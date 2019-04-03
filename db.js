@@ -12,5 +12,11 @@ function getUsers (db = connection) {
 }
 
 function getUser (id, db = connection) {
-  return db('users').where('id', id).first()
+  console.log(id)
+  return db('users')
+  .join('profile', 'users.id','=', 'profile.id')
+  .where({'users.id': id})
 }
+
+
+   
