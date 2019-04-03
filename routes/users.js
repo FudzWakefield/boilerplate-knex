@@ -29,18 +29,30 @@ router.post('/add', (req, res) => {
 
 router.get('/posts', (req, res) => {
   db.getPosts().then(posts => {
-
+    console.log(posts)
     res.render('posts', {
       posts: posts
     })
   })
 })
 
+router.get('/post/create', (req, res) => {
+  res.render('create')
+
+})
+
+router.post('/post/create', (req, res) => {
+
+  console.log(req.body)
+  db.makePost(req.body)
+    .then(res.redirect('/posts'))
+})
+
 
 router.get('/post/:id', (req, res) => {
   let id = req.params.id
+
   db.getPost(id).then(post => {
-    console.log(post)
     res.render('post', {
       post: post
     })

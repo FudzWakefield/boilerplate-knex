@@ -8,7 +8,8 @@ module.exports = {
   getUsers: getUsers,
   addUser: addUser,
   getPosts: getPosts,
-  getPost: getPost
+  getPost: getPost,
+  makePost: makePost
 }
 
 function getUsers(db = connection) {
@@ -34,4 +35,7 @@ function getPost(userId, db = connection) {
     .select()
 }
 
+function makePost(newPost, db = connection) {
+  return db('posts').insert(newPost)
+}
 ////
