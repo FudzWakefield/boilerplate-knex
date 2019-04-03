@@ -29,5 +29,13 @@ router.get('/profiles/:user_id',(req,res) =>{
 })
 
 
+router.get('/addUser', (req, res) => {
+
+})
+
+router.post('/addUser', (req, res) => {
+  
+})
+
 
 module.exports = router
