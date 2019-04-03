@@ -5,7 +5,14 @@
 Email: {{user.email}}
 <br>
 Website: {{user.website}}
-<br><br>
+<br>
+Favourite users:
+<br>
+    {{#each userFav}}
+    <a href='/user/{{favourite_id}}'>*{{favourite_id}}</a>, 
+    {{/each}}
+<br>
+
 Blog posts:
 <br>
 {{#each posts}}

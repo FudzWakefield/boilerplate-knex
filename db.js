@@ -8,7 +8,8 @@ module.exports = {
   getUserProfile: getUserProfile,
   addUser: addUser,
   showBlogPost: showBlogPost,
-  getUserBlogs: getUserBlogs
+  getUserBlogs: getUserBlogs,
+  linkUserFavourite: linkUserFavourite
 }
 
 function getUsers (db = connection) {
@@ -44,4 +45,10 @@ function getUserBlogs (id, db = connection) {
   return db('posts')
   .join('users', 'posts.user_id', 'id')
   .where('users.id', id)
+}
+
+function linkUserFavourite (id, db = connection) {
+  return db('user-favourites')
+  .join('users', 'user-favourites.user_id', 'id')
+  .where('user_id', id)
 }

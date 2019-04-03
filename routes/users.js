@@ -15,13 +15,22 @@ router.get('/', (req, res) => {
 router.get('/user/:id', (req, res) => {
   let id = req.params.id
   
+ 
+
   db.getUserProfile(id)
   .then(user => {
     db.getUserBlogs(user.id)
     .then (posts => {
-      //console.log(user, posts)
-      res.render('profile', {user:user, posts: posts})
+       db.linkUserFavourite(id)
+       
+        .then(userFav => {
+          console.log(user, posts, userFav)
+          res.render('profile', {user:user, posts: posts, userFav: userFav})
+        })
+       
+      // res.render('profile', {user:user, posts: posts})
     })
+    
   })
    .catch(err => {
     res.status(500).send('DATABASE ERROR: ' + err.message)
