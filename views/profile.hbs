@@ -1,17 +1,17 @@
 <h1>{{user.name}}</h1>
 <br>
 <img src= '{{user.image}}'>
-<br>
+<br><br>
 Email: {{user.email}}
 <br>
 Website: {{user.website}}
-<br>
+<br><br>
 Favourite users:
 <br>
     {{#each userFav}}
     <a href='/user/{{favourite_id}}'>*{{favourite_id}}</a>, 
     {{/each}}
-<br>
+<br><br>
 
 Blog posts:
 <br>

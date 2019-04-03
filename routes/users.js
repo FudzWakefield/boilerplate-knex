@@ -21,8 +21,7 @@ router.get('/user/:id', (req, res) => {
   .then(user => {
     db.getUserBlogs(user.id)
     .then (posts => {
-       db.linkUserFavourite(id)
-       
+        db.linkUserFavourite(id)    
         .then(userFav => {
           console.log(user, posts, userFav)
           res.render('profile', {user:user, posts: posts, userFav: userFav})

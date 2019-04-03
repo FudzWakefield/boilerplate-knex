@@ -51,4 +51,25 @@ function linkUserFavourite (id, db = connection) {
   return db('user-favourites')
   .join('users', 'user-favourites.user_id', 'id')
   .where('user_id', id)
+  .then( x => {
+    return x.map(props =>{
+      
+      delete props.name
+      delete props.email
+      delete props.id
+      return props
+    })
+  })
 }
+
+// favid is called - display name of the user
+
+// function getFavName (favourite_id, db = connection) {
+//   return db('users')
+//   .where('users.id', favourite_id)
+//   .then (favname => {
+//     return favname.name
+//   })
+
+
+// }
