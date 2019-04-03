@@ -36,8 +36,8 @@ function addUser (newUser, db = connection) {
 
 function showBlogPost (id, db = connection) {
   return db('posts')
-  //.join('users', 'posts.user_id', 'id')
   .where('posts_id', id)
+  .first()
 }
 
 function getUserBlogs (id, db = connection) {

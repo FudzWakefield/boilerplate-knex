@@ -1,7 +1,5 @@
 const express = require('express')
-
 const db = require('../db')
-
 const router = express.Router()
 
 router.get('/', (req, res) => {
@@ -21,12 +19,11 @@ router.get('/user/:id', (req, res) => {
   .then(user => {
     db.getUserBlogs(user.id)
     .then (posts => {
-      console.log(user, posts)
+      //console.log(user, posts)
       res.render('profile', {user:user, posts: posts})
     })
   })
-  
-  .catch(err => {
+   .catch(err => {
     res.status(500).send('DATABASE ERROR: ' + err.message)
   })
 })
@@ -39,15 +36,15 @@ router.post('/newuser', (req, res) => {
   let newUser = req.body;
   db.addUser(newUser)
   .then (
-    console.log(newUser),
     res.redirect ('/'))
 })
 
 router.get('/posts/:id', (req, res) => {
   let id = req.params.id
   db.showBlogPost (id)
-  .then(
-    res.render('posts')
+  .then(post => {
+    res.render('posts', {post:post})
+  }
   )
 })
 
