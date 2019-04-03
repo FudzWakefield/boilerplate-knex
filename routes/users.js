@@ -22,20 +22,30 @@ router.get('/add', (req, res) => {
 })
 
 router.post('/add', (req, res) => {
-  console.log(req.body)
+
   db.addUser(req.body)
     .then(res.redirect('/'))
 })
 
 router.get('/posts', (req, res) => {
   db.getPosts().then(posts => {
-    console.log(posts)
+
     res.render('posts', {
       posts: posts
     })
   })
 })
 
+
+router.get('/post/:id', (req, res) => {
+  let id = req.params.id
+  db.getPost(id).then(post => {
+    console.log(post)
+    res.render('post', {
+      post: post
+    })
+  })
+})
 
 
 module.exports = router

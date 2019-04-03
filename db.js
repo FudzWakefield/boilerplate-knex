@@ -7,7 +7,8 @@ module.exports = {
   getUser: getUser,
   getUsers: getUsers,
   addUser: addUser,
-  getPosts: getPosts
+  getPosts: getPosts,
+  getPost: getPost
 }
 
 function getUsers(db = connection) {
@@ -27,5 +28,10 @@ function getPosts(db = connection) {
     .join('posts', 'users.id', '=', 'posts.users_id')
 }
 
+function getPost(userId, db = connection) {
+  return db('posts')
+    .where('users_id', '=', userId)
+    .select()
+}
 
 ////
