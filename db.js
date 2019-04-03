@@ -6,7 +6,8 @@ module.exports = {
   getUser: getUser,
   getUsers: getUsers,
   addUser: addUser,
-  addProfile: addProfile
+  addProfile: addProfile,
+  updateUser: updateUser
 }
 
 
@@ -16,15 +17,21 @@ function getUsers (db = connection) {
 
 function getUser (id, db = connection) {
   return db('users')
-  .join('profiles', 'users.id', '=', 'profiles.id')
+  .join('profiles', 'users.id', '=', 'profiles.user_id')
   .where('users.id', id)
   .first()
 }
 
-function addUser(user_obj, db = connection) {
-  return db('users').insert(user_obj)
+function addUser(userObj, db = connection) {
+  return db('users').insert(userObj)
 }
-function addProfile(profile_obj, db = connection) {
-  return db('profiles').insert(profile_obj)
+function addProfile(profileObj, db = connection) {
+  return db('profiles').insert(profileObj)
+}
+
+function updateUser(id, profile_id, db = connection) {
+  return db('users')
+  .where('users.id', '=', id)
+  .update('users.profile_id', '=', profile_id)
 }
 

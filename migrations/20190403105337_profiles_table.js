@@ -2,6 +2,7 @@
 exports.up = function(knex, Promise) {
   return knex.schema.createTable('profiles', (table) => {
     table.increments('id').primary()
+    table.integer('user_id')
     table.string('about', 1000)
     table.string('url')
     table.string('img_link')

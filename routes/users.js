@@ -30,11 +30,18 @@ router.get('/profiles/:user_id',(req,res) =>{
 
 
 router.get('/addUser', (req, res) => {
-
+  res.render('form')
 })
 
 router.post('/addUser', (req, res) => {
-  
+  let obj = req.body;
+  let userObj = {name: obj.name, email: obj.email}
+  let foregnKey = db.addUser(userObj)
+  let profileObj = {user_id: foregnKey, about: obj.about, url: obj.url, img_link: obj.img_link}
+  db.addProfile(profileObj)
+  db.updateUser(foregnKey, profileObj.id)
+
+
 })
 
 
